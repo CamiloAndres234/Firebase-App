@@ -1,19 +1,43 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebaseConfig.js'; // Ajusta el path si es diferente
-import mostrarLogin from './login.js'; // ❗ Necesario para que funcione
+import { auth, db } from '../firebaseConfig.js';
+import mostrarLogin from './login.js';
 
 export default function mostrarRegistro() {
     const app = document.getElementById("app");
+
     app.innerHTML = `
-<h2>Registro</h2>
-<input type="text" id="nombre" placeholder="Nombre"><br>
-<input type="email" id="correo" placeholder="Correo electrónico"><br>
-<input type="password" id="contrasena" placeholder="Contraseña"><br>
-<input type="text" id="fecha" placeholder="Fecha de nacimiento"><br>
-<input type="tel" id="telefono" placeholder="Teléfono"><br>
-<button id="btnRegistro">Registrarse</button>
-`;
+        <div class="login-card">
+            <h2 class="title">🐾 Registro</h2>
+
+            <div class="form-group">
+                <input type="text" id="nombre" class="input" placeholder="Nombre">
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="correo" class="input" placeholder="Correo electrónico">
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="contrasena" class="input" placeholder="Contraseña">
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="fecha" class="input" placeholder="Fecha de nacimiento">
+            </div>
+
+            <div class="form-group">
+                <input type="tel" id="telefono" class="input" placeholder="Teléfono">
+            </div>
+
+            <button id="btnRegistro" class="btn-primary">Registrarse</button>
+
+            <p class="small-text">
+                ¿Ya tienes una cuenta?
+                <button id="btnLogin" class="btn-link">Iniciar sesión</button>
+            </p>
+        </div>
+    `;
 
     document.getElementById("btnRegistro").addEventListener("click", async () => {
         const nombre = document.getElementById("nombre").value;
@@ -45,5 +69,9 @@ export default function mostrarRegistro() {
         } catch (error) {
             alert('Error al registrarse: ' + error.message);
         }
+    });
+
+    document.getElementById("btnLogin").addEventListener("click", () => {
+        mostrarLogin();
     });
 }
