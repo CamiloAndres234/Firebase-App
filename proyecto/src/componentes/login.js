@@ -6,26 +6,40 @@ export default function mostrarLogin() {
     const app = document.getElementById("app");
 
     app.innerHTML = `
-    <div class="card login-card">
-        <h2 class="title">🐾 Iniciar Sesión</h2>
+    <div class="login-wrapper">
 
-        <div class="form-group">
-            <input type="email" id="correo" placeholder="Correo electrónico" class="input">
+        <div class="login-card-big">
+
+            <img 
+                src="https://cdn-icons-png.flaticon.com/512/3199/3199867.png"
+                class="login-big-logo"
+            >
+
+            <h2 class="login-title">¡Bienvenido de nuevo!</h2>
+            <p class="login-subtitle">Conecta, descubre y guarda tus compañeros favoritos.</p>
+
+            <div class="form-section">
+
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" placeholder="Correo electrónico" class="warm-input">
+
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena" placeholder="Contraseña" class="warm-input">
+
+                <button id="btnLogin" class="btn-warm">Ingresar</button>
+
+                <p class="small-text center link-row">
+                    ¿No tienes cuenta?
+                    <button id="btnRegistro" class="btn-warm-link">Crear cuenta</button>
+                </p>
+
+            </div>
+
         </div>
 
-        <div class="form-group">
-            <input type="password" id="contrasena" placeholder="Contraseña" class="input">
-        </div>
-
-        <button id="btnLogin" class="btn-primary">Ingresar</button>
-
-        <p class="small-text">
-            ¿No tienes una cuenta?
-            <button id="btnRegistro" class="btn-link">Crear cuenta</button>
-        </p>
     </div>
     `;
-    
+
     document.getElementById("btnLogin").addEventListener("click", async () => {
         const correo = document.getElementById("correo").value;
         const contrasena = document.getElementById("contrasena").value;

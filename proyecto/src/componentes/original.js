@@ -5,54 +5,63 @@ export default function mostrarOriginal() {
     const contenedor = document.getElementById("app");
 
     contenedor.innerHTML = `
-        <div class="card fade-in p-6 max-w-xl mx-auto" id="originalCard">
-            <h2 class="text-2xl font-bold text-center mb-6 text-[var(--accent-color)]">
-                🐾 Generador de Mascotas
+        <div class="card fade-in max-w-2xl mx-auto p-8 rounded-2xl shadow-lg bg-white">
+
+            <h2 class="text-3xl font-bold text-center mb-6 text-orange-500 flex items-center justify-center gap-2">
+                Generador de Mascotas
             </h2>
 
-            <div class="flex justify-center gap-4 mb-4">
-                <button id="btnDog" class="btn btn-outline">🐶 Obtener perro</button>
-                <button id="btnCat" class="btn btn-outline">🐱 Obtener gato</button>
+            <!-- SECCIÓN 1: Botones -->
+            <div class="flex flex-wrap justify-center gap-4 mb-6">
+                <button id="btnDog" class="px-6 py-3 border-2 border-orange-400 rounded-xl text-orange-600 font-semibold hover:bg-orange-100 transition">
+                    🐶 Obtener perro
+                </button>
+
+                <button id="btnCat" class="px-6 py-3 border-2 border-orange-400 rounded-xl text-orange-600 font-semibold hover:bg-orange-100 transition">
+                    🐱 Obtener gato
+                </button>
             </div>
 
-            <div class="flex justify-center">
+            <!-- SECCIÓN 2: Imagen -->
+            <div class="flex justify-center mb-6">
                 <img id="petImg"
-                     class="rounded-xl shadow-lg mx-auto hidden"
+                     class="rounded-2xl shadow-xl mx-auto hidden"
                      style="
-                        max-width: 250px;
-                        max-height: 250px;
-                        width: auto;
-                        height: auto;
+                        max-width: 300px;
+                        max-height: 300px;
                         object-fit: cover;
-                        border-radius: 16px;
                      ">
             </div>
 
-            <div class="mt-5">
+            <!-- SECCIÓN 3: Inputs -->
+            <div class="bg-gray-50 p-5 rounded-2xl shadow-inner mb-6">
+                <h3 class="font-bold text-lg mb-3 text-orange-500">Información de la Mascota</h3>
+
                 <label class="font-semibold">Nombre:</label>
                 <input type="text" id="inputNombre"
-                       class="w-full p-3 border-2 rounded-xl mt-1"
-                       placeholder="Ej: Pelusa">
-            </div>
+                    class="w-full p-3 border-2 rounded-xl mt-1 mb-4"
+                    placeholder="Ej: Pelusa">
 
-            <div class="mt-4">
                 <label class="font-semibold">Descripción:</label>
                 <input type="text" id="inputDesc"
-                       class="w-full p-3 border-2 rounded-xl mt-1"
-                       placeholder="Ej: Muy tierno y juguetón">
+                    class="w-full p-3 border-2 rounded-xl mt-1"
+                    placeholder="Ej: Muy tierno y juguetón">
             </div>
 
-            <button id="btnGuardar" class="btn w-full mt-5">Guardar en Firebase</button>
+            <button id="btnGuardar" class="bg-orange-500 w-full py-3 rounded-xl text-white font-semibold hover:bg-orange-600 transition">
+                Guardar en Firebase
+            </button>
 
-            <h3 class="text-center mt-6 font-semibold">📦 Datos generados</h3>
+            <!-- SECCIÓN 4: Datos JSON -->
+            <h3 class="text-center mt-8 font-bold text-lg text-orange-500">Datos generados</h3>
 
             <div id="resultadoJSON"
-                 class="p-4 bg-[var(--secondary-color)] rounded-xl text-sm mt-2 leading-relaxed">
+                 class="p-4 bg-gray-100 rounded-xl text-sm mt-3 leading-relaxed shadow-inner">
             </div>
         </div>
     `;
 
-    // ---- Referencias a elementos ----
+    // ---- Referencias ----
     const btnDog = document.getElementById("btnDog");
     const btnCat = document.getElementById("btnCat");
     const img = document.getElementById("petImg");
@@ -74,21 +83,22 @@ export default function mostrarOriginal() {
         const fecha = new Date(mascota.fechaGuardado).toLocaleDateString();
 
         resultado.innerHTML = `
-            <p><strong>🐾 Tipo:</strong> ${mascota.tipo || "—"}</p>
-            <p><strong>🆔 ID API:</strong> ${mascota.idApi || "—"}</p>
-            <p><strong>📛 Nombre:</strong> ${mascota.nombre || "—"}</p>
-            <p><strong>📝 Descripción:</strong> ${mascota.descripcion || "—"}</p>
-            <p><strong>📷 Imagen:</strong> ${
+            <p><strong>Tipo:</strong> ${mascota.tipo || "—"}</p>
+            <p><strong>ID API:</strong> ${mascota.idApi || "—"}</p>
+            <p><strong>Nombre:</strong> ${mascota.nombre || "—"}</p>
+            <p><strong>Descripción:</strong> ${mascota.descripcion || "—"}</p>
+            <p><strong>Imagen:</strong> ${
                 mascota.imagen
                     ? `<a href="${mascota.imagen}" target="_blank" class="text-blue-600 underline">Ver imagen</a>`
                     : "—"
             }</p>
-            <p><strong>📅 Fecha:</strong> ${fecha}</p>
+            <p><strong>Fecha:</strong> ${fecha}</p>
         `;
     }
 
     btnDog.onclick = async () => {
-        const data = await fetch("https://api.thedogapi.com/v1/images/search").then(r => r.json());
+        const data = await fetch("https://api.thedogapi.com/v1/images/search")
+            .then(r => r.json());
 
         mascota.tipo = "dog";
         mascota.imagen = data[0].url;
@@ -101,7 +111,8 @@ export default function mostrarOriginal() {
     };
 
     btnCat.onclick = async () => {
-        const data = await fetch("https://api.thecatapi.com/v1/images/search").then(r => r.json());
+        const data = await fetch("https://api.thecatapi.com/v1/images/search")
+            .then(r => r.json());
 
         mascota.tipo = "cat";
         mascota.imagen = data[0].url;
