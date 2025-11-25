@@ -2,28 +2,17 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig.js";
 import mostrarLogin from "./login.js";
 
-export default function mostrarLogout() {
-    const app = document.getElementById("app");
+export default function activarLogout() {
+    const btnLogout = document.getElementById("nav-logout");
 
-    app.innerHTML = `
-        <div style="
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 70vh;
-            font-size: 20px;
-        ">
-            <p>Cerrando sesión...</p>
-        </div>
-    `;
-
-    // Cerrar sesión
-    signOut(auth)
-        .then(() => {
-            mostrarLogin(); // Redirigir a login después de cerrar sesión
-        })
-        .catch((error) => {
-            alert("Error al cerrar sesión: " + error.message);
-            mostrarLogin();
+    if (btnLogout) {
+        btnLogout.addEventListener("click", async () => {
+            try {
+                await signOut(auth);
+                mostrarLogin(); // vuelve al login SIN recargar toda la página
+            } catch (error) {
+                alert("Error al cerrar sesión: " + error.message);
+            }
         });
+    }
 }

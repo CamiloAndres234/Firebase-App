@@ -1,3 +1,4 @@
+//-- Aprtado de Gennerador
 import { db } from "../firebaseConfig.js";
 import { collection, addDoc } from "firebase/firestore";
 
@@ -5,63 +6,54 @@ export default function mostrarOriginal() {
     const contenedor = document.getElementById("app");
 
     contenedor.innerHTML = `
-        <div class="card fade-in max-w-2xl mx-auto p-8 rounded-2xl shadow-lg bg-white">
+    <div class="generator-container active">
 
-            <h2 class="text-3xl font-bold text-center mb-6 text-orange-500 flex items-center justify-center gap-2">
-                Generador de Mascotas
-            </h2>
+        <h2 class="text-3xl font-bold text-center mb-6" style="color:#FF7B54;">
+            Generador de Mascotas
+        </h2>
 
-            <!-- SECCIÓN 1: Botones -->
-            <div class="flex flex-wrap justify-center gap-4 mb-6">
-                <button id="btnDog" class="px-6 py-3 border-2 border-orange-400 rounded-xl text-orange-600 font-semibold hover:bg-orange-100 transition">
-                    🐶 Obtener perro
-                </button>
-
-                <button id="btnCat" class="px-6 py-3 border-2 border-orange-400 rounded-xl text-orange-600 font-semibold hover:bg-orange-100 transition">
-                    🐱 Obtener gato
-                </button>
+        <!-- BOTONES DE MASCOTA -->
+        <div class="flex justify-between gap-3">
+            <div id="btnDog" class="btn-pet cursor-pointer">
+                <i>🐶</i>
+                <span>Perro</span>
             </div>
 
-            <!-- SECCIÓN 2: Imagen -->
-            <div class="flex justify-center mb-6">
-                <img id="petImg"
-                     class="rounded-2xl shadow-xl mx-auto hidden"
-                     style="
-                        max-width: 300px;
-                        max-height: 300px;
-                        object-fit: cover;
-                     ">
-            </div>
-
-            <!-- SECCIÓN 3: Inputs -->
-            <div class="bg-gray-50 p-5 rounded-2xl shadow-inner mb-6">
-                <h3 class="font-bold text-lg mb-3 text-orange-500">Información de la Mascota</h3>
-
-                <label class="font-semibold">Nombre:</label>
-                <input type="text" id="inputNombre"
-                    class="w-full p-3 border-2 rounded-xl mt-1 mb-4"
-                    placeholder="Ej: Pelusa">
-
-                <label class="font-semibold">Descripción:</label>
-                <input type="text" id="inputDesc"
-                    class="w-full p-3 border-2 rounded-xl mt-1"
-                    placeholder="Ej: Muy tierno y juguetón">
-            </div>
-
-            <button id="btnGuardar" class="bg-orange-500 w-full py-3 rounded-xl text-white font-semibold hover:bg-orange-600 transition">
-                Guardar en Firebase
-            </button>
-
-            <!-- SECCIÓN 4: Datos JSON -->
-            <h3 class="text-center mt-8 font-bold text-lg text-orange-500">Datos generados</h3>
-
-            <div id="resultadoJSON"
-                 class="p-4 bg-gray-100 rounded-xl text-sm mt-3 leading-relaxed shadow-inner">
+            <div id="btnCat" class="btn-pet cursor-pointer">
+                <i>🐱</i>
+                <span>Gato</span>
             </div>
         </div>
+
+        <!-- Imagen -->
+        <div class="pet-data mt-6 text-center">
+            <img id="petImg" class="hidden" />
+        </div>
+
+        <!-- Inputs -->
+        <div class="pet-card mt-4">
+            <h3 class="font-bold mb-3" style="color:#FF7B54;">Información</h3>
+
+            <input id="inputNombre" class="input-field" placeholder="Nombre de la mascota">
+
+            <input id="inputDesc" class="input-field" placeholder="Descripción">
+        </div>
+
+        <!-- Guardar -->
+        <button id="btnGuardar" class="btn-primary w-full mt-4">
+            Guardar en Firebase
+        </button>
+
+        <!-- JSON -->
+        <div class="pet-card mt-6">
+            <h3 class="font-bold mb-2" style="color:#FF7B54;">Datos generados</h3>
+            <div id="resultadoJSON" class="text-sm leading-relaxed"></div>
+        </div>
+
+    </div>
     `;
 
-    // ---- Referencias ----
+    // ----- REFERENCIAS -----
     const btnDog = document.getElementById("btnDog");
     const btnCat = document.getElementById("btnCat");
     const img = document.getElementById("petImg");
@@ -80,27 +72,27 @@ export default function mostrarOriginal() {
     };
 
     function actualizarJSON() {
-        const fecha = new Date(mascota.fechaGuardado).toLocaleDateString();
+        const fecha = new Date(mascota.fechaGuardado).toLocaleDateString("es-CO");
 
         resultado.innerHTML = `
-            <p><strong>Tipo:</strong> ${mascota.tipo || "—"}</p>
-            <p><strong>ID API:</strong> ${mascota.idApi || "—"}</p>
-            <p><strong>Nombre:</strong> ${mascota.nombre || "—"}</p>
-            <p><strong>Descripción:</strong> ${mascota.descripcion || "—"}</p>
-            <p><strong>Imagen:</strong> ${
+            <p><strong style="color:#FF7B54;">Tipo:</strong> ${mascota.tipo || "—"}</p>
+            <p><strong style="color:#FF7B54;">ID API:</strong> ${mascota.idApi || "—"}</p>
+            <p><strong style="color:#FF7B54;">Nombre:</strong> ${mascota.nombre || "—"}</p>
+            <p><strong style="color:#FF7B54;">Descripción:</strong> ${mascota.descripcion || "—"}</p>
+            <p><strong style="color:#FF7B54;">Imagen:</strong> ${
                 mascota.imagen
-                    ? `<a href="${mascota.imagen}" target="_blank" class="text-blue-600 underline">Ver imagen</a>`
+                    ? `<a href="${mascota.imagen}" target="_blank" style="color:#FF7B54;text-decoration:underline">Ver</a>`
                     : "—"
             }</p>
-            <p><strong>Fecha:</strong> ${fecha}</p>
+            <p><strong style="color:#FF7B54;">Fecha:</strong> ${fecha}</p>
         `;
     }
 
+    // PERRO
     btnDog.onclick = async () => {
-        const data = await fetch("https://api.thedogapi.com/v1/images/search")
-            .then(r => r.json());
+        const data = await fetch("https://api.thedogapi.com/v1/images/search").then(r => r.json());
 
-        mascota.tipo = "dog";
+        mascota.tipo = "Perro";
         mascota.imagen = data[0].url;
         mascota.idApi = data[0].id;
 
@@ -110,11 +102,11 @@ export default function mostrarOriginal() {
         actualizarJSON();
     };
 
+    // GATO
     btnCat.onclick = async () => {
-        const data = await fetch("https://api.thecatapi.com/v1/images/search")
-            .then(r => r.json());
+        const data = await fetch("https://api.thecatapi.com/v1/images/search").then(r => r.json());
 
-        mascota.tipo = "cat";
+        mascota.tipo = "Gato";
         mascota.imagen = data[0].url;
         mascota.idApi = data[0].id;
 
@@ -124,6 +116,7 @@ export default function mostrarOriginal() {
         actualizarJSON();
     };
 
+    // Inputs
     inputNombre.oninput = () => {
         mascota.nombre = inputNombre.value;
         actualizarJSON();
@@ -134,18 +127,19 @@ export default function mostrarOriginal() {
         actualizarJSON();
     };
 
+    // Guardar
     btnGuardar.onclick = async () => {
         if (!mascota.tipo || !mascota.imagen) {
-            alert("Primero debes obtener un perro o un gato.");
+            alert("Primero genera una mascota ");
             return;
         }
 
         try {
             await addDoc(collection(db, "favoritos"), mascota);
-            alert("🐾 Mascota guardada correctamente!");
-        } catch (error) {
-            console.error(error);
-            alert("❌ Error al guardar.");
+            alert("🐾 Mascota guardada correctamente");
+        } catch (e) {
+            console.error(e);
+            alert("❌ Error al guardar");
         }
     };
 

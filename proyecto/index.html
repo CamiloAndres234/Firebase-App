@@ -1,24 +1,70 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>proyecto</title>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PawGalaxy</title>
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF7B54',
+            secondary: '#FFB26B',
+            tertiary: '#FFD56F',
+            background: '#FFF9F0',
+            textDark: '#4A3D35',
+            textLight: '#8C7569',
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="bg-background">
+  <div class="app-container">
+   <!-- Bottom Navigation -->
+<div class="bottom-nav hidden" id="bottom-nav">
+  <div class="flex justify-around items-center h-[70px]">
 
-    <!--  ⭐ AQUI VA EL CSS  ⭐ -->
-    <link rel="stylesheet" href="/src/style.css">
+    <!-- INICIO -->
+    <button class="nav-item flex flex-col items-center w-1/4" id="nav-home">
+      <i class="nav-icon fa-solid fa-house"></i>
+      <span class="text-xs">Inicio</span>
+    </button>
 
-  </head>
-  <body>
+    <!-- GENERADOR -->
+    <button class="nav-item flex flex-col items-center w-1/4" id="nav-generator">
+      <i class="nav-icon fa-solid fa-paw"></i>
+      <span class="text-xs">Generador</span>
+    </button>
 
-    <div id="menu"></div>
+    <!-- FAVORITOS -->
+    <button class="nav-item flex flex-col items-center w-1/4" id="nav-favoritos">
+      <i class="nav-icon fa-solid fa-heart"></i>
+      <span class="text-xs">Favoritos</span>
+    </button>
+
+    <!-- SALIR -->
+    <button class="nav-item flex flex-col items-center w-1/4" id="nav-logout">
+      <i class="nav-icon fa-solid fa-sign-out-alt"></i>
+      <span class="text-xs">Salir</span>
+    </button>
+
+  </div>
+</div>
+
+
+  <div id="menu"></div>
     <div id="app"></div>
-
-
-
     <!--  Tu app principal -->
     <script type="module" src="/src/main.js"></script>
-
-  </body>
+</body>
 </html>

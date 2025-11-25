@@ -7,50 +7,61 @@ export default function mostrarRegistro() {
     const app = document.getElementById("app");
 
     app.innerHTML = `
-    <div class="login-wrapper">
+    <div class="app-container">
 
-        <div class="login-card-big">
+        <div class="register-container active">
 
-            <img 
-                src="https://cdn-icons-png.flaticon.com/512/8334/8334302.png"
-                class="login-big-logo"
-            >
-
-            <h2 class="login-title">Crea tu cuenta</h2>
-            <p class="login-subtitle">Únete a PawGalaxy y empieza a descubrir compañeros increíbles.</p>
-
-            <div class="form-section">
-
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" class="warm-input" placeholder="Tu nombre">
-
-                <label for="correo">Correo electrónico</label>
-                <input type="email" id="correo" class="warm-input" placeholder="ejemplo@correo.com">
-
-                <label for="contrasena">Contraseña</label>
-                <input type="password" id="contrasena" class="warm-input" placeholder="Contraseña segura">
-
-                <label for="fecha">Fecha de nacimiento</label>
-                <input type="date" id="fecha" class="warm-input">
-
-                <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" class="warm-input" placeholder="+57 300 000 0000">
-
-                <button id="btnRegistro" class="btn-warm">Registrarse</button>
-
-                <p class="small-text center link-row">
-                    ¿Ya tienes cuenta?
-                    <button id="btnLogin" class="btn-warm-link">Iniciar sesión</button>
-                </p>
-
+            <div class="flex justify-center mb-8">
+                <img 
+                    src="https://cdn-icons-png.flaticon.com/512/8334/8334302.png"
+                    alt="Registro"
+                    class="w-32"
+                >
             </div>
+
+            <h2 class="text-3xl font-bold text-center text-primary mb-4">Crear cuenta</h2>
+            <p class="text-center text-textLight mb-6">
+                Únete a PawGalaxy y descubre compañeros increíbles.
+            </p>
+
+            <div class="mb-4">
+                <label for="nombre" class="block text-textDark mb-2 font-medium">Nombre</label>
+                <input type="text" id="nombre" class="input-field" placeholder="Tu nombre">
+            </div>
+
+            <div class="mb-4">
+                <label for="correo" class="block text-textDark mb-2 font-medium">Correo electrónico</label>
+                <input type="email" id="correo" class="input-field" placeholder="ejemplo@correo.com">
+            </div>
+
+            <div class="mb-4">
+                <label for="contrasena" class="block text-textDark mb-2 font-medium">Contraseña</label>
+                <input type="password" id="contrasena" class="input-field" placeholder="Contraseña segura">
+            </div>
+
+            <div class="mb-4">
+                <label for="fecha" class="block text-textDark mb-2 font-medium">Fecha de nacimiento</label>
+                <input type="date" id="fecha" class="input-field">
+            </div>
+
+            <div class="mb-6">
+                <label for="telefono" class="block text-textDark mb-2 font-medium">Teléfono</label>
+                <input type="tel" id="telefono" class="input-field" placeholder="+57 300 000 0000">
+            </div>
+
+            <button id="btnRegistro" class="btn-primary w-full mb-4">Registrarse</button>
+
+            <p class="text-center text-textLight text-sm">
+                ¿Ya tienes cuenta?
+                <button id="btnLogin" class="underline text-primary">Iniciar sesión</button>
+            </p>
 
         </div>
 
     </div>
     `;
 
-    // Función de registro
+    // --- REGISTRO ---
     document.getElementById("btnRegistro").addEventListener("click", async () => {
         const nombre = document.getElementById("nombre").value;
         const correo = document.getElementById("correo").value;
@@ -83,7 +94,7 @@ export default function mostrarRegistro() {
         }
     });
 
-    // Regresar al login
+    // --- IR AL LOGIN ---
     document.getElementById("btnLogin").addEventListener("click", () => {
         mostrarLogin();
     });
